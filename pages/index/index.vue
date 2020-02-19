@@ -5,6 +5,9 @@
 			<button class="mini-btn margin-left" type="default" size="mini" @click="selectSQL">查询数据</button>
 			<button class="mini-btn margin-left" type="warn" size="mini" @click="deleteSQL">清除</button>
 		</view>
+		<view>
+			<button class="mini-btn margin-left" type="warn" size="mini" @click="testSocket">原生方法</button>
+		</view>
 		<view class="text-area">
 			<!-- <text class="title">{{title}}</text> -->
 			<text class="title">{{textData}}</text>
@@ -55,6 +58,49 @@
 			}
 		},
 		methods: {
+			testSocket(){
+				try{
+					if (plus.os.name == "Android") {
+
+						let Socket = plus.android.importClass("java.net.Socket");
+						let PrintWriter = plus.android.importClass("java.io.PrintWriter");
+						let BufferedWriter = plus.android.importClass("java.io.BufferedWriter");
+						let OutputStreamWriter = plus.android.importClass("java.io.OutputStreamWriter");
+						let BufferedReader = plus.android.importClass("java.io.BufferedReader");
+						let InputStreamReader = plus.android.importClass("java.io.InputStreamReader");
+
+						//新建一个socket链接
+						let socket = new Socket('10.100.172.208', 9999);
+						let date1 = new Date(); //开始时间
+						let outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
+						let bufferWriter = new BufferedWriter(outputStreamWriter);
+						let out = new PrintWriter(bufferWriter, true);
+						console.log("请求的数据为-----"+'123');
+						out.println('123'); //发送请求数据
+						out.flush();
+						socket.shutdownOutput();
+						let inputStreamReader = new InputStreamReader(socket.getInputStream()); //接收请求数据
+						let br = new BufferedReader(inputStreamReader);
+						let data = br.readLine();
+						let date2 = new Date(); //结束时间
+						{
+							if(data != null) {
+								var date3 = date2.getTime() - date1.getTime() //时间差的毫秒数
+								console.log("请求耗时为:(毫秒)-----" + date3);
+								console.log("返回的数据为-----"+data);
+								let datajson = JSON.stringify(data); //请求数据字符串转化为json对象
+								return datajson; //返回json对象
+							} else {
+								console.log("socket链接错误");
+								return false; //返回失败
+							}
+						}
+					}
+				}catch (e) {
+					console.log('出现错误-------------------------')
+					console.log(e)
+				}
+			},
 			// 打开数据库
 			openDB(){
 				console.log('启动了')
@@ -111,7 +157,6 @@
 							textString+=JSON.stringify(data[i])
 							console.log(data[i]);
 						}
-						console.log('-------------------')
 						console.log(textString)
 						_this.textData = textString
 						uni.showToast({
@@ -158,6 +203,7 @@
 				})
 				uni.connectSocket({
 					url: 'ws:/10.100.172.48:8088',
+					// url: 'ws:/127.0.0.1:8088',
 					data() {
 						return {
 							msg: 'Hello'

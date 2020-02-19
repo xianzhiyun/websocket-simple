@@ -261,12 +261,20 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(5, "sc"), attrs: { _i: 5 } },
+        { attrs: { _i: 5 } },
         [
           _c(
-            "v-uni-text",
-            { staticClass: _vm._$g(6, "sc"), attrs: { _i: 6 } },
-            [_vm._v(_vm._$g(6, "t0"))]
+            "v-uni-button",
+            {
+              staticClass: _vm._$g(6, "sc"),
+              attrs: { type: "warn", size: "mini", _i: 6 },
+              on: {
+                click: function($event) {
+                  return _vm.$handleViewEvent($event)
+                }
+              }
+            },
+            [_vm._v("原生方法")]
           )
         ],
         1
@@ -276,14 +284,26 @@ var render = function() {
         { staticClass: _vm._$g(7, "sc"), attrs: { _i: 7 } },
         [
           _c(
-            "v-uni-view",
+            "v-uni-text",
             { staticClass: _vm._$g(8, "sc"), attrs: { _i: 8 } },
             [_vm._v(_vm._$g(8, "t0"))]
+          )
+        ],
+        1
+      ),
+      _c(
+        "v-uni-view",
+        { staticClass: _vm._$g(9, "sc"), attrs: { _i: 9 } },
+        [
+          _c(
+            "v-uni-view",
+            { staticClass: _vm._$g(10, "sc"), attrs: { _i: 10 } },
+            [_vm._v(_vm._$g(10, "t0"))]
           ),
           _c(
             "v-uni-button",
             {
-              attrs: { type: "primary", _i: 9 },
+              attrs: { type: "primary", _i: 11 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -299,11 +319,11 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm._$g(10, "v-show"),
-                  expression: "_$g(10,'v-show')"
+                  value: _vm._$g(12, "v-show"),
+                  expression: "_$g(12,'v-show')"
                 }
               ],
-              attrs: { type: "primary", _i: 10 },
+              attrs: { type: "primary", _i: 12 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -315,7 +335,7 @@ var render = function() {
           _c(
             "v-uni-button",
             {
-              attrs: { type: "primary", _i: 11 },
+              attrs: { type: "primary", _i: 13 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -326,7 +346,7 @@ var render = function() {
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(12, "sc"), attrs: { _i: 12 } },
+            { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
             [
               _vm._v(
                 "发送消息后会收到一条服务器返回的消息（与发送的消息内容一致）"

@@ -61,7 +61,7 @@
 			testSocket(){
 				try{
 					if (plus.os.name == "Android") {
-
+            console.log('android开始连接')
 						let Socket = plus.android.importClass("java.net.Socket");
 						let PrintWriter = plus.android.importClass("java.io.PrintWriter");
 						let BufferedWriter = plus.android.importClass("java.io.BufferedWriter");
@@ -70,7 +70,7 @@
 						let InputStreamReader = plus.android.importClass("java.io.InputStreamReader");
 
 						//新建一个socket链接
-						let socket = new Socket('10.100.172.208', 9999);
+						let socket = new Socket('10.100.0.102', 7777);
 						let date1 = new Date(); //开始时间
 						let outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
 						let bufferWriter = new BufferedWriter(outputStreamWriter);
@@ -202,7 +202,9 @@
 					title: '连接中...'
 				})
 				uni.connectSocket({
-					url: 'ws:/10.100.172.48:8088',
+					// url: 'ws://localhost:8888',
+					url: 'ws://10.100.0.102:7777',
+					// url: 'ws://127.0.0.1:7777',
 					// url: 'ws:/127.0.0.1:8088',
 					data() {
 						return {
@@ -219,10 +221,11 @@
 					// #endif
 					success(res) {
 						// 这里是接口调用成功的回调，不是连接成功的回调，请注意
+            console.log('res')
 						console.log('连接成功')
 					},
 					fail(err) {
-						console.log('连接移仓')
+						console.log('连接异常')
 						// 这里是接口调用失败的回调，不是连接失败的回调，请注意
 					}
 				})
@@ -261,7 +264,7 @@
 			send() {
 				let _this =this
 				uni.sendSocketMessage({
-					data: JSON.stringify(_this.textData),
+					data: JSON.stringify(`${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`),
 					// data: _this.textData,
 					success(res) {
 						console.log(res);
